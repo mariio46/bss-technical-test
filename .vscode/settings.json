@@ -1,5 +1,6 @@
 {
     "workbench.editor.customLabels.patterns": {
-        "**/app/**/page.tsx": "${dirname}/page.tsx"
+        "**/app/**/page.tsx": "PAGE: ${dirname}/page.tsx",
+        "**/features/**/**.tsx": "FEATURE: ${dirname}/${filename}.tsx"
     }
 }
