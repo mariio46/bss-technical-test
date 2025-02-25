@@ -2,7 +2,7 @@ import 'server-only';
 
 import { cookies } from 'next/headers';
 
-const cookieExpires = new Date(Date.now() + 600000);
+const cookieExpires = new Date(Date.now() + 1800000);
 
 export async function setHttpOnlyCookie(key: string, value: string) {
     const cookieStore = await cookies();
