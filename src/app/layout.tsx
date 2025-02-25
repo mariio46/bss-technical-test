@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { cn } from '@/utils';
 import { geistMono, geistSans } from './fonts';
 
+import { RootProvider } from '@/providers';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,7 +23,7 @@ export default function RootLayout({
     return (
         <html lang='en' className={cn(geistSans.variable, geistMono.variable)} suppressHydrationWarning>
             <body className='font-sans antialiased' suppressHydrationWarning>
-                {children}
+                <RootProvider>{children}</RootProvider>
             </body>
         </html>
     );

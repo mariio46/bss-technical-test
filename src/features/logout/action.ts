@@ -1,23 +1,11 @@
 'use server';
 
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-
 import { axiosServer } from '@/lib/axios';
-import { ACCESS_TOKEN_COOKIE_KEY, REFRESH_TOKEN_COOKIE_KEY, USER_SESSION_COOKIE_KEY } from '@/utils/cookie-key';
-import { deleteHttpOnlyCookie } from '@/utils/server-utils';
-
-async function handleIfUnauthenticated() {
-    await deleteHttpOnlyCookie(ACCESS_TOKEN_COOKIE_KEY);
-    await deleteHttpOnlyCookie(REFRESH_TOKEN_COOKIE_KEY);
-    await deleteHttpOnlyCookie(USER_SESSION_COOKIE_KEY);
-    redirect('/login');
-}
+import { REFRESH_TOKEN_COOKIE_KEY } from '@/utils/cookie-key';
+import { getHttpOnlyCookie, handleIfUnauthenticated } from '@/utils/server-utils';
 
 export async function logout() {
-    const cookiesStore = await cookies();
-
-    const refreshToken = cookiesStore.get(REFRESH_TOKEN_COOKIE_KEY);
+    const refreshToken = await getHttpOnlyCookie(REFRESH_TOKEN_COOKIE_KEY);
 
     if (!refreshToken) {
         await handleIfUnauthenticated();
