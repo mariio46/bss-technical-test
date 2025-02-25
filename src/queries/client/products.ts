@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { parseAsInteger, parseAsString, useQueryState } from 'nuqs';
 
 import type { ApiResponse } from '@/types/api';
@@ -26,6 +26,17 @@ export const useQueryProducts = () => {
 
     const debounceValue = useDebounce(search);
 
+    function resetQueryState(withPage: boolean = false, withSize: boolean = false) {
+        if (withPage) {
+            setPage(1);
+        }
+        if (withSize) {
+            setSize(10);
+        }
+        setOrder(null);
+        setSearch('');
+    }
+
     const params: Params = {
         page,
         size,
@@ -36,7 +47,8 @@ export const useQueryProducts = () => {
     const query = useQuery({
         queryKey: ['products', 'lists', params],
         queryFn: () => getProducts(params),
+        placeholderData: keepPreviousData,
     });
 
-    return { query, queryState: { page, setPage, size, setSize, order, setOrder, search, setSearch } };
+    return { query, queryState: { page, setPage, size, setSize, order, setOrder, search, setSearch, resetQueryState } };
 };

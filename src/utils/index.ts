@@ -15,3 +15,10 @@ export function gravatar(value: string, size: number = 150): string {
 
     return `https://www.gravatar.com/avatar/${hashedEmail}?s=${size}&d=mp`;
 }
+
+export function toRupiah(value: string) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+    }).format(parseFloat(value));
+}
