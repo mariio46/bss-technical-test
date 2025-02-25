@@ -8,7 +8,7 @@ import { Loader, LogOut } from 'lucide-react';
 
 import { logout } from '@/features/logout/action';
 import { useQueryAuthUser } from '@/queries/client/auth-user';
-import { acronym } from '@/utils';
+import { acronym, gravatar } from '@/utils';
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
@@ -59,7 +59,7 @@ const UserDropdown = () => {
                         <DropdownMenuTrigger>
                             <div className='relative'>
                                 <Avatar>
-                                    <AvatarImage src={data.user.username} alt={data.user.first_name} />
+                                    <AvatarImage src={gravatar(data.user.username)} alt={data.user.first_name} />
                                     <AvatarFallback>{acronym(data.user.first_name)}</AvatarFallback>
                                 </Avatar>
                                 <span className='absolute bottom-0 end-0 size-3 rounded-full border-2 border-background bg-emerald-500'>
@@ -71,7 +71,7 @@ const UserDropdown = () => {
                             <DropdownMenuLabel className='p-0 font-normal'>
                                 <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                                     <Avatar className='h-8 w-8 rounded-[0.425rem]'>
-                                        <AvatarImage src={data.user.username} alt={data.user.first_name} />
+                                        <AvatarImage src={gravatar(data.user.username)} alt={data.user.first_name} />
                                         <AvatarFallback className='rounded-[0.425rem]'>
                                             {acronym(data.user.first_name)}
                                         </AvatarFallback>
