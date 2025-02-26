@@ -1,6 +1,15 @@
 {
     "workbench.editor.customLabels.patterns": {
         "**/app/**/page.tsx": "PAGE: ${dirname}/page.tsx",
-        "**/features/**/**.tsx": "FEATURE: ${dirname}/${filename}.tsx"
+
+        "**/features/**/**.tsx": "FEATURE: ${dirname}/${filename}.tsx",
+        "**/features/**/**.ts": "FEATURE: ${dirname}/${filename}.ts",
+
+        "**/queries/client/**/**.ts": "CLIENT QUERY: ${dirname}/${filename}.ts",
+        "**/queries/server/**/**.ts": "SERVER QUERY: ${dirname}/${filename}.ts",
+
+        "**/app/api/**/route.ts": "API: ${dirname}/route.ts",
+
+        "**/types/**/**.ts": "TYPE: ${dirname}/${filename}.ts"
     }
 }

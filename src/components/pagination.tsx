@@ -1,4 +1,4 @@
-import { ChevronRight, ChevronsLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { cn } from '@/utils';
 
@@ -13,7 +13,7 @@ const PaginationInfo = ({ className, to, total, ...props }: PaginationInfoProps)
     return (
         <div
             className={cn(
-                'text-muted-foreground w-full text-sm [&_span]:font-medium [&_span]:text-foreground',
+                'w-full text-sm text-muted-foreground [&_span]:font-medium [&_span]:text-foreground',
                 className,
             )}
             {...props}>
@@ -47,7 +47,7 @@ const PaginationAction = ({
                 className='flex-shrink-0 rounded-lg'
                 variant='outline'
                 size='icon'>
-                <ChevronsLeft className='stroke-[1.8]' />
+                <ChevronLeft className='stroke-[1.8]' />
                 <span className='sr-only'>Previous page</span>
             </Button>
 

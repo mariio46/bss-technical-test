@@ -1,13 +1,16 @@
 'use client';
 
-import { EllipsisVertical } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 import { useQueryProducts } from '@/queries/client/products';
 import { formatDateTime, toRupiah } from '@/utils';
 
 import { TableRowEmptyBlock, TableRowErrorBlock, TableRowLoadingBlock } from '@/components/table-blocks';
-import { Button } from '@/components/ui/button';
+import { TableColumnDropdownAction } from '@/components/table-column-dropdown-action';
+import { DropdownMenuItem } from '@/components/ui/dropdown';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
+import { DeleteProductDialog } from '../delete/dialog';
 
 const ProductsTableContent = () => {
     const { data, status } = useQueryProducts().query;
@@ -51,9 +54,16 @@ const ProductsTableContent = () => {
                                     {formatDateTime(new Date(product.updated_at), 'HH:mm, MMM dd, yyyy')}
                                 </TableCell>
                                 <TableCell className='text-right'>
-                                    <Button variant='ghost' size='icon' className='w-5 [&_svg]:size-4'>
-                                        <EllipsisVertical className='stroke-[1.8]' />
-                                    </Button>
+                                    <TableColumnDropdownAction>
+                                        <DeleteProductDialog product={product}>
+                                            <DropdownMenuItem
+                                                className='text-destructive focus:text-destructive'
+                                                onSelect={(e) => e.preventDefault()}>
+                                                <Trash2 className='stroke-2' />
+                                                Delete Product
+                                            </DropdownMenuItem>
+                                        </DeleteProductDialog>
+                                    </TableColumnDropdownAction>
                                 </TableCell>
                             </TableRow>
                         ))}
