@@ -70,8 +70,8 @@ const ProductsTableHeader = () => {
                         <SelectItem value='-price'>Sort by highest price</SelectItem>
                         <SelectItem value='+stock'>Sort by lowest stock</SelectItem>
                         <SelectItem value='-stock'>Sort by highest stock</SelectItem>
-                        <SelectItem value='+created_at'>Sort from oldest to oldest</SelectItem>
-                        <SelectItem value='-created_at'>Sort from newest to newest</SelectItem>
+                        <SelectItem value='+created_at'>Sort from oldest to newest</SelectItem>
+                        <SelectItem value='-created_at'>Sort from newest to oldest</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
