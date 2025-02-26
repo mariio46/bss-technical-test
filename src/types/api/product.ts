@@ -6,6 +6,8 @@ type Product = {
     price: string;
     stock: string;
     type: string;
+    created_at: string;
+    updated_at: string;
 };
 
 export type { Product };

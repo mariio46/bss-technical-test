@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import type { Product } from '@/types/api/product';
 
@@ -34,9 +35,9 @@ export const useCreateProduct = (handleClose: VoidFunction) => {
 
             form.reset();
 
-            // toast('Success', {
-            //     description: data.message,
-            // });
+            toast('Success', {
+                description: `Product with name ${data.product.name} has been created successfully.`,
+            });
         } catch (e) {
             const error = e as AxiosError<{ errors: CreateProductError }>;
 
