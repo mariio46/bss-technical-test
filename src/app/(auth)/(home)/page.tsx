@@ -1,9 +1,9 @@
 import { Container } from '@/components/container';
 import { Header, HeaderSubTitle, HeaderTitle } from '@/components/header';
 
-import { ProductsTableContent } from '@/features/products/table-content';
-import { ProductsTableFooter } from '@/features/products/table-footer';
-import { ProductsTableHeader } from '@/features/products/table-header';
+import { ProductsTableContent } from '@/features/products/table/table-content';
+import { ProductsTableFooter } from '@/features/products/table/table-footer';
+import { ProductsTableHeader } from '@/features/products/table/table-header';
 
 export default function HomePage() {
     return (

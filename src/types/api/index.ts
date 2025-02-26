@@ -5,4 +5,14 @@ type ApiResponse<TData> = {
     results: TData;
 };
 
-export type { ApiResponse };
+type FieldError = {
+    error: string;
+    code: string;
+};
+
+type ApiErrorValidation<TError extends Record<string, FieldError[]>> = {
+    error: string;
+    detail: TError;
+};
+
+export type { ApiErrorValidation, ApiResponse, FieldError };

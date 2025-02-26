@@ -10,6 +10,8 @@ import { InputIcon } from '@/components/ui/input-icon';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
+import { CreateProductDialog } from '../create/dialog';
+
 const ProductsTableHeader = () => {
     const { query, queryState } = useQueryProducts();
     const { status } = query;
@@ -29,7 +31,7 @@ const ProductsTableHeader = () => {
                                     variant='outline'
                                     size='icon'
                                     className={cn(
-                                        'bg-muted/20 text-destructive/75 hover:text-destructive dark:bg-muted/50 shrink-0',
+                                        'shrink-0 bg-muted/20 text-destructive/75 hover:text-destructive dark:bg-muted/50',
                                         !state && 'hidden',
                                     )}>
                                     <Trash2 className='stroke-2' />
@@ -62,20 +64,24 @@ const ProductsTableHeader = () => {
                         <SelectValue placeholder='Sort by price' />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value='+name'>Sort from A-Z</SelectItem>
-                        <SelectItem value='-name'>Sort from Z-A</SelectItem>
-                        <SelectItem value='+price'>Sort from cheapest</SelectItem>
-                        <SelectItem value='-price'>Sort from expensive</SelectItem>
-                        <SelectItem value='+stock'>Sort from lest stock</SelectItem>
-                        <SelectItem value='-stock'>Sort from lots stock</SelectItem>
+                        <SelectItem value='+name'>Sort from A to Z</SelectItem>
+                        <SelectItem value='-name'>Sort from Z to A</SelectItem>
+                        <SelectItem value='+price'>Sort by lowest price</SelectItem>
+                        <SelectItem value='-price'>Sort by highest price</SelectItem>
+                        <SelectItem value='+stock'>Sort by lowest stock</SelectItem>
+                        <SelectItem value='-stock'>Sort by highest stock</SelectItem>
+                        <SelectItem value='+created_at'>Sort from oldest to oldest</SelectItem>
+                        <SelectItem value='-created_at'>Sort from newest to newest</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
             <div className='order-1 w-full text-end sm:order-last sm:col-span-1'>
-                <Button className='w-full lg:w-min'>
-                    <CircleFadingPlus />
-                    Add product
-                </Button>
+                <CreateProductDialog>
+                    <Button type='button' className='w-full lg:w-min'>
+                        <CircleFadingPlus />
+                        Add product
+                    </Button>
+                </CreateProductDialog>
             </div>
         </div>
     );

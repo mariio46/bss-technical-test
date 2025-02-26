@@ -32,7 +32,7 @@ export async function GET() {
         if (error.status === 401) {
             return Response.json({ message: 'Unauthenticated' }, { status: 401 });
         }
-    }
 
-    return Response.json(payload, { status: 200 });
+        return Response.json({ message: 'Something went wrong' }, { status: error.status });
+    }
 }
