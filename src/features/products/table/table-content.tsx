@@ -1,16 +1,17 @@
 'use client';
 
-import { Trash2 } from 'lucide-react';
+import { PencilLine, Trash2 } from 'lucide-react';
 
 import { useQueryProducts } from '@/queries/client/products';
 import { formatDateTime, toRupiah } from '@/utils';
 
 import { TableRowEmptyBlock, TableRowErrorBlock, TableRowLoadingBlock } from '@/components/table-blocks';
 import { TableColumnDropdownAction } from '@/components/table-column-dropdown-action';
-import { DropdownMenuItem } from '@/components/ui/dropdown';
+import { DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 import { DeleteProductDialog } from '../delete/dialog';
+import { UpdateProductDialog } from '../update/dialog';
 
 const ProductsTableContent = () => {
     const { data, status } = useQueryProducts().query;
@@ -55,11 +56,18 @@ const ProductsTableContent = () => {
                                 </TableCell>
                                 <TableCell className='text-right'>
                                     <TableColumnDropdownAction>
+                                        <UpdateProductDialog product={product} source='index'>
+                                            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                                                <PencilLine className='stroke-[1.8]' />
+                                                Update Product
+                                            </DropdownMenuItem>
+                                        </UpdateProductDialog>
+                                        <DropdownMenuSeparator />
                                         <DeleteProductDialog product={product}>
                                             <DropdownMenuItem
                                                 className='text-destructive focus:text-destructive'
                                                 onSelect={(e) => e.preventDefault()}>
-                                                <Trash2 className='stroke-2' />
+                                                <Trash2 className='stroke-[1.8]' />
                                                 Delete Product
                                             </DropdownMenuItem>
                                         </DeleteProductDialog>

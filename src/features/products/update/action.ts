@@ -1,47 +1,64 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import type { Product } from '@/types/api/product';
 
 import { axiosClient } from '@/lib/axios';
-import { createProductSchema, type CreateProductFormFields } from './schema';
+import { updateProductSchema, type UpdateProductFormFields } from './schema';
 
-type CreateProductError = {
+type UpdateProductError = {
     name: string[];
     price: string[];
     type: string[];
     stock: string[];
 };
 
-export const useCreateProduct = (handleClose: VoidFunction) => {
+export const useUpdateProduct = (handleClose: VoidFunction, product: Product, source: 'index' | 'show' = 'index') => {
+    const router = useRouter();
+
     const queryClient = useQueryClient();
 
-    const form = useForm<CreateProductFormFields>({
-        resolver: zodResolver(createProductSchema),
+    const form = useForm<UpdateProductFormFields>({
+        resolver: zodResolver(updateProductSchema),
         defaultValues: {
             name: '',
-            price: 1000,
+            price: 0,
             stock: 0,
             type: '',
         },
+        values: {
+            name: product.name,
+            price: Number(product.price),
+            type: product.type,
+            stock: Number(product.stock),
+        },
     });
 
-    async function submit(values: CreateProductFormFields) {
+    async function submit(values: UpdateProductFormFields) {
         try {
-            const { data } = await axiosClient.post<{ product: Product }>('/api/products/create', values);
+            const { data } = await axiosClient.patch<{ product: Product }>(
+                `/api/products/update/${product.id}`,
+                values,
+            );
 
-            form.reset();
+            form.reset({
+                name: data.product.name,
+                price: Number(data.product.price),
+                stock: Number(data.product.stock),
+                type: data.product.type,
+            });
 
             toast('Success', {
-                description: `Product with name ${data.product.name} has been created successfully.`,
+                description: `Product with name ${data.product.name} has been updated successfully.`,
             });
 
             handleClose();
         } catch (e) {
-            const error = e as AxiosError<{ errors: CreateProductError }>;
+            const error = e as AxiosError<{ errors: UpdateProductError }>;
 
             if (error.status === 422 && error.response) {
                 const { errors } = error.response.data;
@@ -68,6 +85,8 @@ export const useCreateProduct = (handleClose: VoidFunction) => {
             queryClient.invalidateQueries({
                 queryKey: ['products'],
             });
+
+            if (source === 'show') router.push('/', { scroll: true });
         }
     }
 
