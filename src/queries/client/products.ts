@@ -52,3 +52,14 @@ export const useQueryProducts = () => {
 
     return { query, queryState: { page, setPage, size, setSize, order, setOrder, search, setSearch, resetQueryState } };
 };
+
+async function getProduct(id: string) {
+    return await axiosClient.get<{ product: Product }>(`/api/products/detail/${id}`).then((res) => res.data);
+}
+
+export const useQueryProduct = (id: string) => {
+    return useQuery({
+        queryKey: ['products', 'detail', { id }],
+        queryFn: () => getProduct(id),
+    });
+};

@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { PencilLine, Trash2 } from 'lucide-react';
 
 import { useQueryProducts } from '@/queries/client/products';
@@ -42,7 +44,11 @@ const ProductsTableContent = () => {
                             <TableRow key={product.uuid}>
                                 <TableCell className='w-[10px]'>{product.stock}</TableCell>
                                 <TableCell className='flex min-w-[12.5rem] flex-col gap-0.5'>
-                                    <h4 className='font-medium text-foreground'>{product.name}</h4>
+                                    <Link
+                                        href={`/${product.id}`}
+                                        className='font-medium text-foreground hover:underline'>
+                                        {product.name}
+                                    </Link>
                                     <span className='text-xs text-muted-foreground'>Category: {product.type}</span>
                                 </TableCell>
                                 <TableCell className='overflow-hidden whitespace-nowrap'>
@@ -63,7 +69,7 @@ const ProductsTableContent = () => {
                                             </DropdownMenuItem>
                                         </UpdateProductDialog>
                                         <DropdownMenuSeparator />
-                                        <DeleteProductDialog product={product}>
+                                        <DeleteProductDialog product={product} source='index'>
                                             <DropdownMenuItem
                                                 className='text-destructive focus:text-destructive'
                                                 onSelect={(e) => e.preventDefault()}>

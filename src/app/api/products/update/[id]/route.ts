@@ -2,11 +2,10 @@ import type { AxiosError } from 'axios';
 
 import type { ApiErrorValidation, FieldError } from '@/types/api';
 import type { Product } from '@/types/api/product';
+import type { Params } from '@/types/app';
 
 import { axiosServer } from '@/lib/axios';
 import { handleIfUnauthenticated } from '@/utils/server-utils';
-
-type Params = { params: Promise<{ id: string }> };
 
 type CreateProductError = ApiErrorValidation<{
     name: FieldError[];
@@ -15,7 +14,7 @@ type CreateProductError = ApiErrorValidation<{
     stock: FieldError[];
 }>;
 
-export async function PATCH(request: Request, { params }: Params) {
+export async function PATCH(request: Request, { params }: Params<{ id: string }>) {
     const payload = await request.json();
     const id = (await params).id;
 

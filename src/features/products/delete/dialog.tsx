@@ -22,12 +22,13 @@ import { formatDateTime, toRupiah } from '@/utils';
 interface DeleteProductDialogProps {
     children: React.ReactNode;
     product: Product;
+    source: 'index' | 'show';
 }
 
-const DeleteProductDialog = ({ children, product }: DeleteProductDialogProps) => {
+const DeleteProductDialog = ({ children, product, source = 'index' }: DeleteProductDialogProps) => {
     const { open, setOpen, handleClose } = useOpen();
 
-    const { handleDelete, loading } = useDeleteProduct(handleClose);
+    const { handleDelete, loading } = useDeleteProduct(handleClose, source);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
