@@ -28,7 +28,7 @@ interface DeleteProductDialogProps {
 const DeleteProductDialog = ({ children, product, source = 'index' }: DeleteProductDialogProps) => {
     const { open, setOpen, handleClose } = useOpen();
 
-    const { handleDelete, loading } = useDeleteProduct(handleClose, source);
+    const { handleDelete, loading } = useDeleteProduct(handleClose, product, source);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>

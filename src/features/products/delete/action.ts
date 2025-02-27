@@ -1,13 +1,15 @@
 import { useRouter } from 'next/navigation';
 
-import type { AxiosError } from 'axios';
-
 import { useQueryClient } from '@tanstack/react-query';
+import type { AxiosError } from 'axios';
+import { toast } from 'sonner';
+
+import type { Product } from '@/types/api/product';
 
 import { useOpen } from '@/hooks/use-open';
 import { axiosClient } from '@/lib/axios';
 
-export const useDeleteProduct = (closeDialog: VoidFunction, source: 'index' | 'show' = 'index') => {
+export const useDeleteProduct = (closeDialog: VoidFunction, product: Product, source: 'index' | 'show' = 'index') => {
     const { open: loading, handleClose: stopLoading, handleOpen: startLoading } = useOpen();
 
     const router = useRouter();
@@ -18,6 +20,10 @@ export const useDeleteProduct = (closeDialog: VoidFunction, source: 'index' | 's
         startLoading();
         try {
             await axiosClient.delete(`/api/products/delete/${id}`);
+
+            toast('Success', {
+                description: `Product with name ${product.name} has been deleted successfully.`,
+            });
         } catch (e) {
             const error = e as AxiosError;
             console.error(error);
