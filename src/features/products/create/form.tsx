@@ -63,7 +63,7 @@ const CreateProductForm = ({ handleClose }: { handleClose: VoidFunction }) => {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>
-                                Type <span className='text-destructive'>*</span>
+                                Category <span className='text-destructive'>*</span>
                             </FormLabel>
                             <FormControl>
                                 <Input

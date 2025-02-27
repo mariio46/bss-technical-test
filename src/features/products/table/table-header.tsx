@@ -49,7 +49,7 @@ const ProductsTableHeader = () => {
                         onChange={(e) => setSearch(e.target.value)}
                         icon={<ListFilterIcon className='size-4 stroke-[1.8]' />}
                         className='bg-muted/20 dark:bg-muted/50'
-                        placeholder='Search name of product'
+                        placeholder='Search'
                     />
                 </div>
                 <Select
@@ -61,7 +61,7 @@ const ProductsTableHeader = () => {
                             'bg-muted/20 dark:bg-muted/50',
                             !order ? 'text-muted-foreground' : 'text-foreground',
                         )}>
-                        <SelectValue placeholder='Sort by price' />
+                        <SelectValue placeholder='Filter product' />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value='+name'>Sort from A to Z</SelectItem>
